@@ -14,6 +14,8 @@ class ChecklistViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         let item1 = ChecklistItem()
         item1.text = "Walk the dog"
         items.append(item1)
