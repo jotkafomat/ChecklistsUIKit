@@ -61,7 +61,9 @@ class ChecklistViewController: UITableViewController {
         
         label.text = item.text
         
+        configureText(for: cell, with: item)
         configureCheckmark(for: cell, with: item)
+        
         return cell
     }
     
@@ -102,6 +104,19 @@ class ChecklistViewController: UITableViewController {
         let label = cell.viewWithTag(1000) as! UILabel
         label.text = item.text
     }
+    
+    override func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        items.remove(at: indexPath.row)
+        
+        let indexPaths = [indexPath]
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+    }
+    
+    
     
     // MARK: - Actions
     @IBAction func addItem() {
