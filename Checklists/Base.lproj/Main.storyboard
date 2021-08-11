@@ -17,14 +17,14 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ChecklistItem" id="r6N-fI-o8n">
-                                <rect key="frame" x="0.0" y="24.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="24.5" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="r6N-fI-o8n" id="KHv-qI-Jw3">
-                                    <rect key="frame" x="0.0" y="0.0" width="338.5" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="338.5" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="22i-dR-Jx5">
-                                            <rect key="frame" x="16" y="11" width="315" height="21.5"/>
+                                            <rect key="frame" x="16" y="11" width="315" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -81,8 +81,16 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Add Item" largeTitleDisplayMode="never" id="TUH-IE-MsF">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="EEm-AP-T7D"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="o7i-4q-Ngv"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="EEm-AP-T7D">
+                            <connections>
+                                <action selector="cancel" destination="wY1-Bz-vtt" id="C9E-bK-sjT"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="o7i-4q-Ngv">
+                            <connections>
+                                <action selector="done" destination="wY1-Bz-vtt" id="hPK-e6-u6N"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
