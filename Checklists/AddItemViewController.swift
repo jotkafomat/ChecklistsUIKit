@@ -30,8 +30,11 @@ class AddItemViewController: UITableViewController {
     }
     
     @IBAction func done() {
+        print(textField.text!)
         navigationController?.popViewController(animated: true)
     }
 
-
+//    MARK:- Outlets
+    @IBOutlet weak var textField: UITextField!
+    
 }
