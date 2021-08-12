@@ -7,15 +7,15 @@
 
 import UIKit
 
-class AddItemViewController: UITableViewController {
+class AddItemViewController: UITableViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
        
     }
     
-//    Mark:- TableView Delegates
-    
+// MARK:- TableView Delegates
+
     override func tableView(
         _ tableView: UITableView,
         willSelectRowAt indexPath: IndexPath
@@ -27,6 +27,28 @@ class AddItemViewController: UITableViewController {
         super.viewWillAppear(animated)
         textField.becomeFirstResponder()
     }
+//    MARK:- TextField Delegates
+    func textField(
+        _ textFIeld: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        
+        let oldText = textField.text!
+        let stringRange = Range(range, in: oldText)!
+        let newText = oldText.replacingCharacters(
+            in: stringRange,
+            with: string)
+        doneBarButton.isEnabled = !newText.isEmpty
+
+        return true
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        doneBarButton.isEnabled = false
+        return true
+    }
+    
     
 //    MARK:- Actions
     
@@ -42,4 +64,5 @@ class AddItemViewController: UITableViewController {
 //    MARK:- Outlets
     @IBOutlet weak var textField: UITextField!
     
+    @IBOutlet weak var doneBarButton: UIBarButtonItem!
 }
