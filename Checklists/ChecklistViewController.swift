@@ -26,7 +26,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         let indexPaths = [indexPath]
         
         tableView.insertRows(at: indexPaths, with: .automatic)
-        
+        saveChecklistItems()
         navigationController?.popViewController(animated: true)
     }
     
@@ -38,6 +38,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
                 configureText(for: cell, with: item)
             }
         }
+        saveChecklistItems()
         navigationController?.popViewController(animated: true)
     }
     
@@ -89,6 +90,9 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         let item5 = ChecklistItem()
         item5.text = "Eat ice cream"
         items.append(item5)
+        
+        print("Documents folder is \(documentsDirectory())")
+        print("Data file path is \(dataFilePath())")
     }
     
     
@@ -134,7 +138,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        saveChecklistItems()
     }
     
     func configureCheckmark(
@@ -168,7 +172,34 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
+        saveChecklistItems()
+    }
+//    MARK: - Data persistence
+    
+    func documentsDirectory() -> URL {
+      let paths = FileManager.default.urls(
+        for: .documentDirectory,
+        in: .userDomainMask)
+      return paths[0]
+    }
+
+    func dataFilePath() -> URL {
+      return documentsDirectory().appendingPathComponent("Checklists.plist")
     }
     
+    func saveChecklistItems() {
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(items)
+            
+            try data.write(
+                to: dataFilePath(),
+                options: Data.WritingOptions.atomic
+            )
+        } catch {
+            print("Error encoding item array: \(error.localizedDescription)")
+        }
+    }
 }
 
