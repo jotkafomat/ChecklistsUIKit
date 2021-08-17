@@ -7,7 +7,29 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Checklist-->
+        <!--All Lists-->
+        <scene sceneID="r55-IV-4sp">
+            <objects>
+                <tableViewController id="OpH-zV-QOy" userLabel="All Lists" customClass="AllListsTableViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="o3U-AD-b9R">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="OpH-zV-QOy" id="CF8-RC-EnE"/>
+                            <outlet property="delegate" destination="OpH-zV-QOy" id="nd5-k0-5mu"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Checklists" id="IGt-q3-fkN"/>
+                    <connections>
+                        <segue destination="J8I-If-2eE" kind="show" identifier="ShowChecklist" id="0Vu-8y-bow"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1hx-Sn-xdR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="559" y="-636"/>
+        </scene>
+        <!--Name of the Checklist  Excerpt From: Fahim Farook. “UIKit Apprentice”. Apple Books. -->
         <scene sceneID="A0X-Sr-6XI">
             <objects>
                 <tableViewController id="J8I-If-2eE" customClass="ChecklistViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
@@ -56,7 +78,10 @@
                             <outlet property="delegate" destination="J8I-If-2eE" id="dn2-yI-KoE"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Checklist" id="OeL-3H-o3X">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="OeL-3H-o3X">
+                        <string key="title">Name of the Checklist
+
+Excerpt From: Fahim Farook. “UIKit Apprentice”. Apple Books. </string>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ZSU-Tf-Tms">
                             <connections>
                                 <segue destination="wY1-Bz-vtt" kind="show" identifier="AddItem" id="cbH-ST-G5W"/>
@@ -146,7 +171,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="J8I-If-2eE" kind="relationship" relationship="rootViewController" id="a07-rr-i1t"/>
+                        <segue destination="OpH-zV-QOy" kind="relationship" relationship="rootViewController" id="s4a-mh-pdG"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j4y-RJ-FVk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
