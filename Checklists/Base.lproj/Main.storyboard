@@ -81,8 +81,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="qK7-Gy-NsE">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="lQW-Ht-UEK"/>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="tS8-Ij-sRK"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="lQW-Ht-UEK">
+                            <connections>
+                                <action selector="cancel" destination="Igh-Wz-Gfl" id="Tg5-Ru-akp"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="tS8-Ij-sRK">
+                            <connections>
+                                <action selector="done" destination="Igh-Wz-Gfl" id="qwo-pm-Jga"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="doneBarButton" destination="tS8-Ij-sRK" id="iQH-QO-C33"/>
