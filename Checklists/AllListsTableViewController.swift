@@ -75,7 +75,6 @@ class AllListsTableViewController: UITableViewController, ListDetailViewControll
     ) {
         if segue.identifier == "ShowChecklist" {
             let controller = segue.destination as! ChecklistViewController
-            
             controller.checklist = sender as? Checklist
         } else if segue.identifier == "AddChecklist" {
             let controller = segue.destination as!
