@@ -48,6 +48,7 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet var textField: UITextField!
     @IBOutlet var doneBarButton: UIBarButtonItem!
     
+    @IBOutlet var iconImage: UIImageView!
     // MARK:- Actions
     
     @IBAction func cancel() {
@@ -73,29 +74,28 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
         _ tableView: UITableView,
         willSelectRowAt indexPath: IndexPath
     ) -> IndexPath? {
-        return nil
+        return indexPath.section == 1 ? indexPath : nil
     }
-    
-    // MARK: - Text Field Delegates
-    func textField(
-        _ textField: UITextField,
-        shouldChangeCharactersIn range: NSRange,
-        replacementString string: String
-    ) -> Bool {
+        // MARK: - Text Field Delegates
+        func textField(
+            _ textField: UITextField,
+            shouldChangeCharactersIn range: NSRange,
+            replacementString string: String
+        ) -> Bool {
+            
+            let oldText = textField.text!
+            let stringRange = Range(range, in: oldText)!
+            let newText = oldText.replacingCharacters(
+                in: stringRange,
+                with: string)
+            
+            doneBarButton.isEnabled = !newText.isEmpty
+            return true
+        }
         
-        let oldText = textField.text!
-        let stringRange = Range(range, in: oldText)!
-        let newText = oldText.replacingCharacters(
-            in: stringRange,
-            with: string)
+        func textFieldShouldClear(_ textField: UITextField) -> Bool {
+            doneBarButton.isEnabled = false
+            return true
+        }
         
-        doneBarButton.isEnabled = !newText.isEmpty
-        return true
     }
-    
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-      doneBarButton.isEnabled = false
-      return true
-    }
-    
-}
