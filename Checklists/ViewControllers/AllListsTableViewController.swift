@@ -16,7 +16,7 @@ class AllListsTableViewController: UITableViewController, ListDetailViewControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
@@ -33,6 +33,12 @@ class AllListsTableViewController: UITableViewController, ListDetailViewControll
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,13 +46,30 @@ class AllListsTableViewController: UITableViewController, ListDetailViewControll
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        
+        let cell: UITableViewCell!
+        
+        if let temp = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) {
+            cell = temp
+        } else {
+            cell = UITableViewCell(
+                style: .subtitle,
+                reuseIdentifier: cellIdentifier
+            )
+        }
         
         let checklist = dataModel.lists[indexPath.row]
         
         cell.textLabel!.text = checklist.name
-        cell.accessoryType = .detailDisclosureButton
         
+        cell.accessoryType = .detailDisclosureButton
+        let count = checklist.countUncheckedItems()
+        
+        if checklist.items.count == 0 {
+            cell.detailTextLabel!.text = "(No items)"
+        } else {
+            cell.detailTextLabel!.text = count == 0 ? "All Done" : "\(count) Remaining"
+        }
         return cell
     }
     
