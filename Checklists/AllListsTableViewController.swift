@@ -30,6 +30,12 @@ class AllListsTableViewController: UITableViewController, ListDetailViewControll
         list = Checklist(name: "To Do")
         lists.append(list)
         super.viewDidLoad()
+        
+        for list in lists {
+            let item = ChecklistItem()
+            item.text = "Item for \(list.name)"
+            list.items.append(item)
+        }
     }
     
     // MARK: - Table view data source
