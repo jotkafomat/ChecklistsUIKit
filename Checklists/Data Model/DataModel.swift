@@ -66,7 +66,7 @@ class DataModel {
     
     func registerDefaults() {
         let dictionary = ["ChecklistIndex" : -1,
-        "FirstTime" : true ] as [String : Any]
+                          "FirstTime" : true ] as [String : Any]
         
         UserDefaults.standard.register(defaults: dictionary)
     }
@@ -91,5 +91,12 @@ class DataModel {
         }
     }
     
-
+    class func nextChecklistItemID() -> Int {
+        let userDefaults = UserDefaults.standard
+        let itemID = userDefaults.integer(forKey: "ChecklistItemID")
+        userDefaults.set(itemID + 1, forKey: "ChecklistItemID")
+        return itemID
+    }
+    
+    
 }
