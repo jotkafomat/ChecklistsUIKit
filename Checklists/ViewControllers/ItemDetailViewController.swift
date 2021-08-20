@@ -6,25 +6,26 @@
 //
 
 import UIKit
+import UserNotifications
 
 protocol ItemDetailViewControllerDelegate: AnyObject {
-  
+    
     func itemDetailViewControllerDidCancel(
-    _ controller: ItemDetailViewController)
-  
+        _ controller: ItemDetailViewController)
+    
     func itemDetailViewController(
-    _ controller: ItemDetailViewController,
-    didFinishAdding item: ChecklistItem
-  )
+        _ controller: ItemDetailViewController,
+        didFinishAdding item: ChecklistItem
+    )
     func itemDetailViewController(
-      _ controller: ItemDetailViewController,
-      didFinishEditing item: ChecklistItem
+        _ controller: ItemDetailViewController,
+        didFinishEditing item: ChecklistItem
     )
     
 }
 
 class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,10 +39,10 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     weak var delegate: ItemDetailViewControllerDelegate?
     var itemToEdit: ChecklistItem?
-
     
-// MARK:- TableView Delegates
-
+    
+    // MARK:- TableView Delegates
+    
     override func tableView(
         _ tableView: UITableView,
         willSelectRowAt indexPath: IndexPath
@@ -53,7 +54,7 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         textField.becomeFirstResponder()
     }
-//    MARK:- TextField Delegates
+    //    MARK:- TextField Delegates
     func textField(
         _ textFIeld: UITextField,
         shouldChangeCharactersIn range: NSRange,
@@ -66,7 +67,7 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
             in: stringRange,
             with: string)
         doneBarButton.isEnabled = !newText.isEmpty
-
+        
         return true
     }
     
@@ -76,29 +77,42 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     
-//    MARK:- Actions
+    //    MARK:- Actions
     
     @IBAction func cancel() {
         delegate?.itemDetailViewControllerDidCancel(self)
     }
     
     @IBAction func done() {
-
+        
         if let item = itemToEdit {
             item.text = textField.text!
             item.shouldRemind = shouldRemindSwitch.isOn
             item.dueDate = datePicker.date
+            item.scheduleNotification()
             delegate?.itemDetailViewController(self, didFinishEditing: item)
         } else {
             let item = ChecklistItem()
             item.text = textField.text!
             item.shouldRemind = shouldRemindSwitch.isOn
             item.dueDate = datePicker.date
+            item.scheduleNotification()
             delegate?.itemDetailViewController(self, didFinishAdding: item)
         }
     }
-
-//    MARK:- Outlets
+    
+    @IBAction func shouldRemindToggled(_ switchControl: UISwitch) {
+        textField.resignFirstResponder()
+        
+        if switchControl.isOn {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound]) {_, _ in
+                
+            }
+        }
+    }
+    
+    //    MARK:- Outlets
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var shouldRemindSwitch: UISwitch!
